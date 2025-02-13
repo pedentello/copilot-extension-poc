@@ -68,13 +68,15 @@ app.post("/", async (c) => {
       const userPrompt = getUserMessage(payload);
 
       const { message } = await prompt(userPrompt, {
-        token: tokenForUser,
+        token: tokenForUser
       });
 
-      stream.write(createTextEvent(`Hi ${user.data.login}! `));
-
+      stream.write(createTextEvent(`Olá ${user.data.login}! `));
+      
+      console.log(`User message: ${message.content}`);
       stream.write(createTextEvent(message.content));
       stream.write(createDoneEvent());
+
     } catch (error) {
       stream.write(
         createErrorsEvent([
@@ -90,7 +92,7 @@ app.post("/", async (c) => {
   });
 });
 
-const port = 3000;
+const port = 4000;
 console.log(`Server is running on port ${port}`);
 
 serve({
